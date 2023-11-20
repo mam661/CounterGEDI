@@ -1,20 +1,22 @@
-import transformers 
 import os
 import json
 import torch
 import time
 from torch.utils.data import DataLoader, Dataset, RandomSampler, SequentialSampler
-from torch.utils.data.distributed import DistributedSampler
+# from torch.utils.data.distributed import DistributedSampler
 from typing import Dict, List, Tuple
 from keras.preprocessing.sequence import pad_sequences
 from tqdm import trange
 from tqdm import tqdm
 import numpy as np
 import GPUtil
-from Utils import misc,preprocess
+# from Utils import misc, preprocess
 from sklearn.model_selection import train_test_split
-from apiconfig import project_name,api_token
-import neptune.new as neptune
+import neptune
+#from apiconfig import project_name,api_token
+
+import transformers
+
 from transformers import (
     MODEL_WITH_LM_HEAD_MAPPING,
     WEIGHTS_NAME,
@@ -28,10 +30,16 @@ from transformers import (
     get_linear_schedule_with_warmup,
 )
 import numpy as np
+
+
 from Generation.models import *
 from Generation.data import *
 from Generation.eval import *
 from Generation.utils import *
+
+
+
+
 
 from Utils.misc import *
 
@@ -48,13 +56,13 @@ def get_gpu(gpu_id):
             if len(tempID) > 0 and (tempID[i]==gpu_id):
                 print("Found a gpu")
                 print('We will use the GPU:',tempID[i],torch.cuda.get_device_name(tempID[i]))
-                deviceID=[tempID[i]]
+                deviceID = [tempID[i]]
                 return deviceID
             else:
                 time.sleep(5)
                 
 
-def train(params,train_dataloader, eval_dataloader, test_dataloader, model: PreTrainedModel, tokenizer: PreTrainedTokenizer, device,run):
+def train(params,train_dataloader, eval_dataloader, test_dataloader, model: PreTrainedModel, tokenizer: PreTrainedTokenizer, device, run):
     """ Train the model """
     
     if params['max_steps'] > 0:
@@ -137,7 +145,7 @@ def train(params,train_dataloader, eval_dataloader, test_dataloader, model: PreT
                 global_step += 1
           
             if params['max_steps'] > 0 and global_step > params['max_steps']:
-                epoch_iterator.close()
+                #epoch_iterator.close()
                 break
         eval_train_score=evaluate(params, model, train_dataloader, device)
 #         #eval_train_score=evaluate(params, model, tokenizer, df_trn,device,params['block_size'])
@@ -252,7 +260,7 @@ if __name__ == "__main__":
     fix_the_random(seed_val = params['seed'])
     run=None
     if(params['logging']=='neptune'):
-        run = neptune.init(project=project_name,api_token=api_token)
+        run = neptune.init(project="Project1",api_token=1)
         run["parameters"] = params
     else:
         pass

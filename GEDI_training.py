@@ -285,7 +285,7 @@ def train_caller(params,run=None,gpu_id=0):
     
 params={
  'model_path':'gpt2',
- 'task_name':'Emotion',
+ 'task_name':'Joy',
  'save_path':HULK_path+'Counterspeech/Saved_models/Discriminator/',
  'logging':'local',
  'cache_path':HULK_path+'Saved_models/',
