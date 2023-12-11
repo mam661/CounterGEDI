@@ -232,9 +232,11 @@ def train_caller(params,run=None):
 
 
 params={
-     'save_path':'../HULK/Counterspeech/Saved_models/Generator/',
+     #'save_path':'../HULK/Counterspeech/Saved_models/Generator/',
+     'save_path':'/modelStorage/', #Changed to be a local save path
      'model_path':'microsoft/DialoGPT-small',
-     'cache_path':'../HULK/Saved_models/',
+     #'cache_path':'../HULK/Saved_models/',
+     'cache_path':'modelStorage/', #Also changed to local save path
      'task_name':'CONAN',	# Task name -> name of the task for which model needs to be trained, takes values like: CONAN, Reddit, Gab
      'topic': True,
      'max_length': 512,
