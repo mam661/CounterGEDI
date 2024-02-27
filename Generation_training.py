@@ -183,7 +183,7 @@ def train(params,train_dataloader, eval_dataloader, test_dataloader, model: PreT
 
 def train_caller(params,run=None):
     
-    dataset_path='../HULK/Counterspeech/Datasets/'+params['task_name']+'/'       # Path to the datatset defined as "All_Dataset_folder/" + params["task_name"] + "/"
+    dataset_path='../HULK/Counterspeech/Datasets/'+params['task_name']+'/'       # Path to the datatset defined as "All_Dataset_folder/" + params["task_name"] + "/" CURRENTLY NOT WORKING
     config = AutoConfig.from_pretrained(params['model_path'],cache_dir=params['cache_path'])
     tokenizer = AutoTokenizer.from_pretrained(params['model_path'],cache_dir=params['cache_path'],fast=False)
     tokenizer.pad_token = tokenizer.eos_token
