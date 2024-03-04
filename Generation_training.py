@@ -33,7 +33,8 @@ import numpy as np
 
 
 from Generation.models import *
-from Generation.data import *
+#from Generation.data import *
+from Generation.data import Normal_Generation_Dataset #This is to avoid the URL issue, hopefully will make sense down the line
 from Generation.eval import *
 from Generation.utils import *
 
